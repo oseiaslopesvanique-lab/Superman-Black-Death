@@ -27,8 +27,7 @@ jobs:
 
       - name: Extrair projeto
         run: |
-          unzip -o Superman_Black_Death_Forge_1.12.2_2859_visual_revisado.zip -d source
-
+          unzip -o Superman_Black_Death_Forge_1.12.2_2859_visual_revisado-1.zip -d source
       - name: Compilar mod
         working-directory: source
         run: gradle build
