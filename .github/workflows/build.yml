@@ -1,0 +1,40 @@
+
+name: Build Superman Black Death
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixar arquivos
+        uses: actions/checkout@v4
+
+      - name: Preparar Java 8
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '8'
+
+      - name: Preparar Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '4.10.3'
+
+      - name: Extrair projeto
+        run: |
+          unzip -o Superman_Black_Death_Forge_1.12.2_2859_visual_revisado.zip -d source
+
+      - name: Compilar mod
+        working-directory: source
+        run: gradle build
+
+      - name: Salvar arquivo JAR
+        uses: actions/upload-artifact@v4
+        with:
+          name: Superman-Black-Death-JAR
+          path: source/build/libs/*.jar
